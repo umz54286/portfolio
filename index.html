@@ -46,7 +46,10 @@
             }
 
             section {
-                padding: 100px 12%;
+                padding: 100px 12%; 
+                max-width: 1200px;
+                margin: auto;
+
             }
 
             /* HERO */
@@ -103,7 +106,74 @@
             .identity p + p {
                 margin-top: 12px;
             }
+            
+            
+            .architecture-horizontal {
+                display: flex;
+                align-items: center;
+                overflow-x: auto;
+                gap: 10px;
+                padding: 20px 10px;
+                scroll-behavior: smooth;
+            }
 
+            .arch-box {
+                background: #1e2a3a;
+                color: #fff;
+                padding: 16px 12px;
+                border-radius: 10px;
+                border: 1px solid #4aa3ff;
+                font-size: 14px;
+                white-space: nowrap;
+                transition: transform 0.3s ease;
+                text-align: center;
+            }
+
+            .arch-box:hover {
+                transform: translateY(-5px);
+                border-color: #80c3ff;
+            }
+
+            .arch-line {
+                flex: 0 0 30px;
+                height: 3px;
+                background: rgba(74,163,255,0.2);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .arch-note {
+                text-align: center;
+                color: #aaa;
+                font-size: 13px;
+                margin-top: 10px;
+            }
+
+
+            /* ✅ 流動動畫 */
+            .arch-line span {
+                position: absolute;
+                width: 40px;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, #4aa3ff, transparent);
+                animation: flow 2s linear infinite;
+            }
+
+            @keyframes flow {
+                0% { left: -40px; }
+                100% { left: 100%; }
+            }
+
+            /* ✅ Responsive */
+            @media (max-width: 768px) {
+                .architecture-horizontal {
+                    flex-direction: column;
+                }
+                .arch-line {
+                    width: 3px;
+                    height: 30px;
+                }
+            }
 
             /* OVERVIEW */
             .overview {
@@ -120,9 +190,9 @@
             /* flow 動畫 */
             .flow {
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-between;
-                margin-top: 50px;
-                position: relative;
+                margin-top: 30px;
             }
 
             .flow div {
@@ -131,34 +201,26 @@
                 transform: translateY(30px);
             }
 
-            .flow div::after {
-                content: "→";
-                color: #334155;
-                position: absolute;
-                right: -15px;
-            }
-
             .flow-step {
                 position: relative; 
+                flex: 1;
+                min-width: 140px;
                 text-align: center;
                 z-index: 1;
                 opacity: 0;
                 transform: translateY(30px);
             }
-
-            .flow-step::after {
-                content: "→";
-                position: absolute;
-                left: 110%;
-                top: 50%;                       
-                transform: translateY(-50%);
-                color: var(--sub-text);
-                opacity: 0.6;
-            }
-
             
             .flow-step:last-child::after {
                 display: none;
+            }
+            
+            
+            .flow-step,
+            .card,
+            .workflow-step {
+                opacity: 0;
+                transform: translateY(30px);
             }
 
 
@@ -168,14 +230,39 @@
                 margin-bottom: 6px;
             }
 
-            /* 卡片 */
-            .systems {
-                display: flex;
-                gap: 30px;
-                margin-top: 40px;
+            /* 卡片 */            
+            .systems-wrapper {
+                position: relative;
+                overflow: hidden;
             }
 
+            .systems {
+                display: flex;
+                gap: 20px;
+                overflow-x: auto;
+                padding: 30px 10px;
+                box-sizing: border-box;
+
+            }
+
+            .scroll-btn {
+                position: absolute;
+                top: 40%;
+                background: #1e2a3a;
+                color: white;
+                border: none;
+                font-size: 24px;
+                padding: 10px;
+                cursor: pointer;
+                z-index: 10;
+            }
+
+            .scroll-btn.left { left: -10px; }
+            .scroll-btn.right { right: -10px; }
+
+
             .card {
+                flex: 0 0 300px;
                 background: var(--card-color);
                 padding: 20px;
                 border-radius: 12px;
@@ -184,7 +271,6 @@
                 box-shadow: 0 4px 12px rgba(0,0,0,0.05);
                 
                 transition: all 0.3s ease, background 0.4s ease, color 0.4s ease;
-                transform: translateY(40px) scale(0.96);
                 opacity: 0;
             }
 
@@ -207,6 +293,21 @@
                 font-size: 14px;
             }
 
+            .card-img-placeholder {
+                height: 170px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #4aa3ff;
+                font-size: 14px;
+                background: rgba(74,163,255,0.05);
+                border-radius: 8px;
+            }
+
+            .mock-arch span {
+                margin: 0 5px;
+            }
+
             /* ✅ 動畫 keyframes */
             @keyframes fadeUp {
                 from {
@@ -217,6 +318,24 @@
                     opacity: 1;
                     transform: translateY(0);
                 }
+            }
+
+            
+            .demo-grid {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .demo-item {
+                width: 280px;
+                text-align: center;
+            }
+
+            .demo-item img {
+                width: 100%;
+                border-radius: 8px;
             }
 
             
@@ -278,6 +397,46 @@
             }
 
             
+            .workflow {
+                background: var(--bg-color);
+            }
+
+            .workflow-desc {
+                max-width: 720px;
+                margin-bottom: 50px;
+                color: var(--sub-text);
+            }
+
+            /* container */
+            .workflow-container {
+                display: flex;
+                justify-content: space-between;
+                position: relative;
+            }
+
+            /* step */
+            .workflow-step {
+                text-align: center;
+                max-width: 160px;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            .workflow-icon {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .workflow-step h3 {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .workflow-step p {
+                font-size: 13px;
+                color: var(--sub-text);
+            }
+
             .footer {
                 background: var(--section-bg);
                 padding: 60px 12%;
@@ -309,15 +468,13 @@
                 color: var(--sub-text);
                 opacity: 0.7;
             }
-
-
         </style>
     </head>
 
     <body>
+
         <div class="theme-toggle">
             <span id="icon">🌙</span>
-
             <label class="switch">
                 <input type="checkbox" id="themeSwitch">
                 <span class="slider"></span>
@@ -328,18 +485,24 @@
         <section class="hero">
             <div class="hero-text">
                 <h1>Manufacturing System Engineer</h1>
-                <p>Building scalable factory systems for real-time operations</p>
+                <p class="hero-sub">
+                    Factory System Integration | OT + IT + MES
+                </p>
+                <p>Building integrated factory systems connecting equipment, MES, and real-time data workflows</p>
                 <p>PWA | Power Platform | C# | WPF</p>
             </div>
         </section>
 
+        <!-- 2 IDENTITY -->
         <section class="identity">
             <p class="identity-title">
                 About
             </p>
             <p>
-                I design and build manufacturing systems that integrate production operations, 
-                workflow automation, and data management into a unified platform.
+                I design and implement manufacturing systems that integrate equipment control, workflow automation, and MES systems into a unified architecture.
+            </p>
+            <p>
+                My experience spans equipment-level control (PLC interaction), Web API development, and MES integration — enabling real-time data flow from shopfloor operations to management systems.
             </p>
             <p>
                 With a background in Industrial Engineering, I focus on transforming real-world 
@@ -351,105 +514,232 @@
             </p>
         </section>
 
-        <!-- 2 SYSTEM OVERVIEW -->
+        <!-- 3 SYSTEM OVERVIEW -->
         <section class="overview">
             <h2>System Overview</h2>
 
             <p class="overview-desc">
-                A layered architecture that connects on-site operations, workflow automation, 
-                system configuration, and SPC-based monitoring into a unified manufacturing system.
+                A layered and event-driven architecture that captures equipment events,
+                processes data through integration APIs, orchestrates workflow automation,
+                and enables real-time monitoring and decision support.
             </p>
+
+            <div class="architecture">
+                <div class="architecture-horizontal">
+
+                    <div class="arch-box">Equipment / PLC</div>
+                    <div class="arch-line"><span></span></div>
+
+                    <div class="arch-box">Integration (C# API)</div>
+                    <div class="arch-line"><span></span></div>
+
+                    <div class="arch-box">Workflow (Power Platform)</div>
+                    <div class="arch-line"><span></span></div>
+
+                    <div class="arch-box">MES System</div>
+                    <div class="arch-line"><span></span></div>
+
+                    <div class="arch-box">Monitoring / SPC</div>
+                    <div class="arch-line"><span></span></div>
+
+                    <div class="arch-box">KPI / Alert / Decision</div>
+                </div>
+                <p class="arch-note">
+                    Event-driven data flow from equipment to MES and monitoring layer,
+                    ensuring real-time visibility and decision support.
+                </p>
+
+
+            </div>
+
+
 
             <div class="flow">
 
                 <div class="flow-step">
-                    <h3>Operation</h3>
-                    <p class="flow-role">
-                        On-site data input and execution
-                    </p>
+                    <h3>Equipment / Operation</h3>
+                    <p class="flow-role">Captures real-time operational data</p>
                     <p>PWA (Inspection)</p>
                 </div>
 
                 <div class="flow-step">
+                    <h3>Integration</h3>
+                    <p class="flow-role">Transforms equipment signals into structured data</p>
+                    <p>C# API / MES Communication</p>
+                </div>
+
+                <div class="flow-step">
                     <h3>Workflow</h3>
-                    <p class="flow-role">
-                        Process automation and task coordination
-                    </p>
+                    <p class="flow-role">Automates processes and task coordination</p>
                     <p>Power Platform</p>
                 </div>
 
                 <div class="flow-step">
                     <h3>Configuration</h3>
-                    <p class="flow-role">
-                        System rules and template management
-                    </p>
+                    <p class="flow-role">Controls rules and data structure</p>
                     <p>Template System</p>
                 </div>
 
                 <div class="flow-step">
                     <h3>Monitoring</h3>
-                    <p class="flow-role">
-                        SPC-based anomaly detection and alerting
-                    </p>
+                    <p class="flow-role">Analyzes data and detects abnormal events</p>
                     <p>SPC Alert System (Planned)</p>
                 </div>
 
             </div>
         </section>
 
-        <!-- 3 CORE SYSTEMS -->
+        <!-- 4 CORE SYSTEMS -->
         <section>
             <h2>Core Systems</h2>
+            
+            <div class="systems-wrapper">
 
-            <div class="systems">
+                <button class="scroll-btn left" onclick="scrollSystems(-300)">‹</button>
+                
+                <div class="systems" id="systemsContainer">
+                    <!-- Integration -->
+                    <div class="card">
+                        <div class="card-img-placeholder">
+                            <div class="mock-arch">
+                                <span>PLC</span>
+                                <span>→</span>
+                                <span>API</span>
+                                <span>→</span>
+                                <span>MES</span>
+                            </div>
+                        </div>
+                        <h2>[ Integration Layer ]</h2>
+                        <h3>Equipment & MES Integration</h3>
+                        <p>
+                            Transforms PLC signals into structured events<br>
+                            Implements Web APIs for real-time integration<br>
+                            Ensures MES communication (HTTP / JSON)<br>
+                            Maintains data consistency across systems
+                        </p>
+                    </div>
 
-                <!-- Inspection -->
-                <div class="card">
-                    <img src="inspection.png" alt="Inspection System">
-                    <h3>Inspection System (PWA)</h3>
-                    <p>
-                        Offline-first data collection<br>
-                        Structured input validation<br>
-                        Template-driven design
-                    </p>
+                    <!-- Operation -->
+                    <div class="card">
+                        <img src="inspection.png" alt="Inspection System">
+                        <h2>[ Operation Layer ]</h2>
+                        <h3>Inspection System (PWA)</h3>
+                        <p>
+                            Captures real-time production data from shopfloor operations<br>
+                            Ensures structured and validated input<br>
+                            Acts as the primary data source for system workflows
+                        </p>
+                    </div>
+
+                    <!-- Configuration -->
+                    <div class="card">
+                        <img src="template.png" alt="Template System">
+                        <h2>[ Configuration Layer ]</h2>
+                        <h3>Template Configuration</h3>
+                        <p>
+                            Defines system rules and validation logic<br>
+                            Supports flexible product configurations<br>
+                            Ensures standardized data structures
+                        </p>
+                    </div>
+
+                    <!-- Infrastructure -->
+                    <div class="card">
+                        <img src="wpf.png" alt="WPF Tool">
+                        <h2>[ Infrastructure Layer ]</h2>
+                        <h3>System Environment Manager (WPF)</h3>
+                        <p>
+                            Maintains system stability and service control<br>
+                            Manages environment configuration<br>
+                            Supports long-term system operation
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Template -->
-                <div class="card">
-                    <img src="template.png" alt="Template System">
-                    <h3>Template Configuration</h3>
-                    <p>
-                        Configurable rules<br>
-                        JSON / Excel integration<br>
-                        Dynamic form generation
-                    </p>
+                <button class="scroll-btn right" onclick="scrollSystems(300)">›</button>
+
+            </div>
+        </section>
+
+        <!-- 5 DEMO -->
+        <section class="demo">
+            <h2>System Demonstration</h2>
+
+            <div class="demo-grid">
+
+                <div class="demo-item">
+                    <h3>Inspection (PWA)</h3>
+                    <img src="inspection.gif">
                 </div>
 
-                <!-- WPF -->
-                <div class="card">
-                    <img src="wpf.png" alt="WPF Tool">
-                    <h3>System Manager (WPF)</h3>
-                    <p>
-                        Environment management<br>
-                        Service control<br>
-                        System monitoring
-                    </p>
+                <div class="demo-item">
+                    <h3>Configuration</h3>
+                    <img src="config.gif">
+                </div>
+
+                <div class="demo-item">
+                    <h3>Teams Repair</h3>
+                    <img src="teams.gif">
                 </div>
 
             </div>
         </section>
 
-        
+
+        <!-- 6 WORKFLOW -->
+        <section class="workflow">
+            <h2>Workflow</h2>
+
+            <p class="workflow-desc">
+                A closed-loop process connecting real-time event capture, system integration,
+                workflow execution, and monitoring.
+            </p>
+
+            <div class="workflow-container">
+
+                <div class="workflow-step">
+                    <div class="workflow-icon">📝</div>
+                    <h3>Report</h3>
+                    <p>Issue reported via Teams or equipment event</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-icon">⚙️</div>
+                    <h3>Process</h3>
+                    <p>Workflow triggered via Power Platform & API integration</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-icon">🔧</div>
+                    <h3>Execute</h3>
+                    <p>Handled through PWA system and operational actions</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-icon">📋</div>
+                    <h3>Standardize</h3>
+                    <p>Template ensures consistent data structure</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-icon">🚨</div>
+                    <h3>Monitor</h3>
+                    <p>SPC and KPI analyze abnormal conditions</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
         <footer class="footer">
             <div class="footer-content">
 
                 <p class="footer-title">
-                    Manufacturing System Engineer
+                    Manufacturing System Integration Engineer
                 </p>
 
                 <p class="footer-desc">
-                    Building scalable factory systems for real-time operations and automation.
-                    Focused on manufacturing system design and real-world implementation.
+                    Building integrated factory systems connecting equipment, MES, and real-time data flows.
                 </p>
 
                 <div class="footer-contact">
@@ -463,7 +753,6 @@
 
             </div>
         </footer>
-
 
         <script>
             const observer = new IntersectionObserver(entries => {
@@ -482,21 +771,12 @@
                 observer.observe(el);
             });
 
-            document.querySelectorAll(".flow-step").forEach((el, index) => {
+            document.querySelectorAll(".flow-step, .card, .workflow-step").forEach((el, index) => {
                 el.style.transition = "all 0.6s ease";
                 el.style.transitionDelay = `${index * 0.2}s`;
                 observer.observe(el);
             });
-
-            document.querySelectorAll(".card, .flow div").forEach(el => {
-                observer.observe(el);
-            });
-
-            
-
-
-
-            
+   
             const toggle = document.getElementById("themeSwitch");
             const icon = document.getElementById("icon");
 
@@ -520,6 +800,10 @@
                 }
             });
 
+            function scrollSystems(value) {
+                document.getElementById("systemsContainer")
+                    .scrollBy({ left: value, behavior: "smooth" });
+            }
         </script>
 
     </body>

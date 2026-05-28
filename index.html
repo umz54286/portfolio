@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Portfolio - Manufacturing System Engineer</title>
+
+        <style>
+            :root {
+                /* DARK（預設） */
+                --bg-color: #0b1220;
+                --section-bg: #111827;
+                --card-color: #1f2937;
+                --card-border: rgba(255,255,255,0.06);
+
+                --text-color: #e5e7eb;
+                --sub-text: #94a3b8;
+
+                --hero-overlay: linear-gradient(to right, rgba(10,20,40,0.6), rgba(10,20,40,0.9));
+                --hero-blur: rgba(5, 10, 25, 0.75);
+
+                --shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+ 
+            body.light {
+                --bg-color: #f8fafc;
+                --section-bg: #eef2f7;
+                --card-color: #ffffff;
+                --card-border: rgba(0,0,0,0.08);
+
+                --text-color: #0f172a;
+                --sub-text: #475569;
+
+                --hero-overlay: linear-gradient(to right, rgba(255,255,255,0.6), rgba(240,245,255,0.9));
+                --hero-blur: rgba(255, 255, 255, 0.6);
+
+                --shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+
+            body {
+                margin: 0;
+                font-family: "Segoe UI", Arial, sans-serif;
+                background: var(--bg-color);
+                color: var(--text-color);
+                overflow-x: hidden;
+                transition: background 0.4s ease, color 0.4s ease;
+            }
+
+            section {
+                padding: 100px 12%;
+            }
+
+            /* HERO */
+            .hero {
+                position: relative;
+                background:
+                    var(--hero-overlay),
+                    url('inspection.png') center/cover no-repeat;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                backdrop-filter: blur(6px);
+                background: var(--hero-blur);
+            }
+
+            /* 文字區 */
+            .hero-text {
+                position: relative;
+                max-width: 600px;
+                margin-left: 10%;
+                z-index: 1;
+                animation: fadeUp 1.2s ease forwards;
+                opacity: 0;
+            }
+
+            .hero-text h1 {
+                font-size: 52px;
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+                color: var(--sub-text);
+                margin-top: 10px;
+            }
+  
+            .identity {   
+                max-width: 720px;
+                line-height: 1.7;
+                font-size: 15px;
+            }
+
+            .identity-title {
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 16px;
+                color: var(--text-color);
+            }
+            
+            .identity p + p {
+                margin-top: 12px;
+            }
+
+
+            /* OVERVIEW */
+            .overview {
+                background: var(--section-bg);
+            }
+            
+            .overview-desc {
+                max-width: 720px;
+                margin-bottom: 40px;
+                color: var(--sub-text);
+                line-height: 1.6;
+            }
+
+            /* flow 動畫 */
+            .flow {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 50px;
+                position: relative;
+            }
+
+            .flow div {
+                text-align: center;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            .flow div::after {
+                content: "→";
+                color: #334155;
+                position: absolute;
+                right: -15px;
+            }
+
+            .flow-step {
+                position: relative; 
+                text-align: center;
+                z-index: 1;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            .flow-step::after {
+                content: "→";
+                position: absolute;
+                left: 110%;
+                top: 50%;                       
+                transform: translateY(-50%);
+                color: var(--sub-text);
+                opacity: 0.6;
+            }
+
+            
+            .flow-step:last-child::after {
+                display: none;
+            }
+
+
+            .flow-role {
+                font-size: 13px;
+                color: var(--sub-text);
+                margin-bottom: 6px;
+            }
+
+            /* 卡片 */
+            .systems {
+                display: flex;
+                gap: 30px;
+                margin-top: 40px;
+            }
+
+            .card {
+                background: var(--card-color);
+                padding: 20px;
+                border-radius: 12px;
+
+                border: 1px solid var(--card-border);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                
+                transition: all 0.3s ease, background 0.4s ease, color 0.4s ease;
+                transform: translateY(40px) scale(0.96);
+                opacity: 0;
+            }
+
+            .card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            }
+
+            .card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .card h3 {
+                margin-top: 15px;
+            }
+
+            .card p {
+                color: var(--sub-text);
+                font-size: 14px;
+            }
+
+            /* ✅ 動畫 keyframes */
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            
+            .theme-toggle {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+                display: flex;            
+                align-items: center;        
+                gap: 8px;                  
+                z-index: 999;
+            }
+
+            .theme-toggle span {
+                display: flex;
+                align-items: center;
+                line-height: 1;   
+                font-size: 18px;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 26px;
+            }
+
+            .switch input {
+                display: none;
+            }
+
+            .slider {
+                position: absolute;
+                inset: 0;
+                background-color: var(--sub-text);
+                border-radius: 34px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .slider::before {
+                content: "";
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                left: 3px;
+                top: 3px;
+                background: white;
+                border-radius: 50%;
+                transition: 0.3s;
+            }
+
+            input:checked + .slider {
+                background-color: #2563eb;
+            }
+
+            input:checked + .slider::before {
+                transform: translateX(24px);
+            }
+
+            
+            .footer {
+                background: var(--section-bg);
+                padding: 60px 12%;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            .footer-desc {
+                color: var(--sub-text);
+                margin-top: 8px;
+            }
+
+            .footer-contact {
+                margin-top: 16px;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                font-size: 14px;
+                color: var(--sub-text);
+            }
+
+            .footer-copy {
+                margin-top: 30px;
+                font-size: 12px;
+                color: var(--sub-text);
+                opacity: 0.7;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div class="theme-toggle">
+            <span id="icon">🌙</span>
+
+            <label class="switch">
+                <input type="checkbox" id="themeSwitch">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- 1 HERO -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Manufacturing System Engineer</h1>
+                <p>Building scalable factory systems for real-time operations</p>
+                <p>PWA | Power Platform | C# | WPF</p>
+            </div>
+        </section>
+
+        <section class="identity">
+            <p class="identity-title">
+                About
+            </p>
+            <p>
+                I design and build manufacturing systems that integrate production operations, 
+                workflow automation, and data management into a unified platform.
+            </p>
+            <p>
+                With a background in Industrial Engineering, I focus on transforming real-world 
+                factory processes into structured, reliable, and maintainable systems.
+            </p>
+            <p>
+                My work emphasizes clear system boundaries, standardized workflows, and scalability 
+                — ensuring stable operation in real production environments.
+            </p>
+        </section>
+
+        <!-- 2 SYSTEM OVERVIEW -->
+        <section class="overview">
+            <h2>System Overview</h2>
+
+            <p class="overview-desc">
+                A layered architecture that connects on-site operations, workflow automation, 
+                system configuration, and SPC-based monitoring into a unified manufacturing system.
+            </p>
+
+            <div class="flow">
+
+                <div class="flow-step">
+                    <h3>Operation</h3>
+                    <p class="flow-role">
+                        On-site data input and execution
+                    </p>
+                    <p>PWA (Inspection)</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>Workflow</h3>
+                    <p class="flow-role">
+                        Process automation and task coordination
+                    </p>
+                    <p>Power Platform</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>Configuration</h3>
+                    <p class="flow-role">
+                        System rules and template management
+                    </p>
+                    <p>Template System</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>Monitoring</h3>
+                    <p class="flow-role">
+                        SPC-based anomaly detection and alerting
+                    </p>
+                    <p>SPC Alert System (Planned)</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3 CORE SYSTEMS -->
+        <section>
+            <h2>Core Systems</h2>
+
+            <div class="systems">
+
+                <!-- Inspection -->
+                <div class="card">
+                    <img src="inspection.png" alt="Inspection System">
+                    <h3>Inspection System (PWA)</h3>
+                    <p>
+                        Offline-first data collection<br>
+                        Structured input validation<br>
+                        Template-driven design
+                    </p>
+                </div>
+
+                <!-- Template -->
+                <div class="card">
+                    <img src="template.png" alt="Template System">
+                    <h3>Template Configuration</h3>
+                    <p>
+                        Configurable rules<br>
+                        JSON / Excel integration<br>
+                        Dynamic form generation
+                    </p>
+                </div>
+
+                <!-- WPF -->
+                <div class="card">
+                    <img src="wpf.png" alt="WPF Tool">
+                    <h3>System Manager (WPF)</h3>
+                    <p>
+                        Environment management<br>
+                        Service control<br>
+                        System monitoring
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        
+        <footer class="footer">
+            <div class="footer-content">
+
+                <p class="footer-title">
+                    Manufacturing System Engineer
+                </p>
+
+                <p class="footer-desc">
+                    Building scalable factory systems for real-time operations and automation.
+                    Focused on manufacturing system design and real-world implementation.
+                </p>
+
+                <div class="footer-contact">
+                    <span>Email: umz54286@gmail.com</span>
+                    <span>Portfolio</span>
+                </div>
+
+                <p class="footer-copy">
+                    © 2026 Yen Yufang. All rights reserved.
+                </p>
+
+            </div>
+        </footer>
+
+
+        <script>
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            });
+
+            
+            document.querySelectorAll(".flow div").forEach((el, index) => {
+                el.style.transition = "all 0.6s ease";
+                el.style.transitionDelay = `${index * 0.2}s`;
+                observer.observe(el);
+            });
+
+            document.querySelectorAll(".flow-step").forEach((el, index) => {
+                el.style.transition = "all 0.6s ease";
+                el.style.transitionDelay = `${index * 0.2}s`;
+                observer.observe(el);
+            });
+
+            document.querySelectorAll(".card, .flow div").forEach(el => {
+                observer.observe(el);
+            });
+
+            
+
+
+
+            
+            const toggle = document.getElementById("themeSwitch");
+            const icon = document.getElementById("icon");
+
+            
+            // 載入時套用
+            if (localStorage.getItem("theme") === "light") {
+                document.body.classList.add("light");
+                toggle.checked = true;
+            }
+
+            // 切換
+            toggle.addEventListener("change", () => {
+                document.body.classList.toggle("light");
+
+                if (document.body.classList.contains("light")) {
+                    icon.textContent = "☀️" ;
+                    localStorage.setItem("theme", "light");
+                } else {
+                    icon.textContent = "🌙" ;
+                    localStorage.setItem("theme", "dark");
+                }
+            });
+
+        </script>
+
+    </body>
+</html>

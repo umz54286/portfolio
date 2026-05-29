@@ -15,7 +15,7 @@
                 --text-color: #e5e7eb;
                 --sub-text: #94a3b8;
 
-                --hero-overlay: linear-gradient(to right, rgba(10,20,40,0.6), rgba(10,20,40,0.9));
+                --hero-overlay: linear-gradient(to right, rgba(10,20,40,0.5), rgba(10,20,40,0.9));
                 --hero-blur: rgba(5, 10, 25, 0.75);
 
                 --shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -30,7 +30,7 @@
                 --text-color: #0f172a;
                 --sub-text: #475569;
 
-                --hero-overlay: linear-gradient(to right, rgba(255,255,255,0.6), rgba(240,245,255,0.9));
+                --hero-overlay: linear-gradient(to right, rgba(255,255,255,0.5), rgba(240,245,255,0.9));
                 --hero-blur: rgba(255, 255, 255, 0.6);
 
                 --shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -72,7 +72,8 @@
             .hero-text {
                 position: relative;
                 max-width: 600px;
-                margin-left: 10%;
+                margin-left: 12%;
+                margin-top: 40px;
                 z-index: 1;
                 animation: fadeUp 1.2s ease forwards;
                 opacity: 0;
@@ -147,10 +148,11 @@
                 color: #aaa;
                 font-size: 13px;
                 margin-top: 10px;
+                margin-bottom: 10px;
             }
 
 
-            /* ✅ 流動動畫 */
+            /* 流動動畫 */
             .arch-line span {
                 position: absolute;
                 width: 40px;
@@ -164,7 +166,7 @@
                 100% { left: 100%; }
             }
 
-            /* ✅ Responsive */
+            /* Responsive */
             @media (max-width: 768px) {
                 .architecture-horizontal {
                     flex-direction: column;
@@ -248,20 +250,55 @@
             .scroll-btn {
                 position: absolute;
                 top: 40%;
-                background: #1e2a3a;
-                color: white;
-                border: none;
-                font-size: 24px;
-                padding: 10px;
+
+                background: rgba(255, 255, 255, 0.6);
+                color: var(--text-color);
+
+                border: 1px solid rgba(255,255,255,0.12);
+
+                font-size: 20px;
+                padding: 10px 14px;
+
                 cursor: pointer;
                 z-index: 10;
+
+                backdrop-filter: blur(6px);
+
+                transition: all 0.25s ease;
+
+                box-shadow: 0 6px 20px rgba(0,0,0,0.4);
             }
 
-            .scroll-btn.left { left: -10px; }
-            .scroll-btn.right { right: -10px; }
+            .scroll-btn:hover {
+                background: rgba(74, 163, 255, 0.2);
+                color: #ffffff;
+                border-color: #4aa3ff;
+
+                transform: translateY(-10%) scale(1.05);
+            }
+
+            .scroll-btn:active {
+                transform: translateY(-10%) scale(0.95);
+            }
 
 
-            .card {
+            .scroll-btn.left { left: -5px; }
+            .scroll-btn.right { right: -5px; }
+
+            
+            body.light .scroll-btn {
+                background: rgba(0, 0, 0, 0.05);
+                color: #0f172a;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+
+            body.light .scroll-btn:hover {
+                background: #4aa3ff;
+                color: white;
+                border-color: #4aa3ff;
+            }
+
+            /* .card {
                 flex: 0 0 300px;
                 background: var(--card-color);
                 padding: 20px;
@@ -272,11 +309,42 @@
                 
                 transition: all 0.3s ease, background 0.4s ease, color 0.4s ease;
                 opacity: 0;
+            } */
+            
+            .card {
+                flex: 0 0 300px;
+                background: var(--card-color);
+                padding: 20px;
+                border-radius: 12px;
+
+                border: 1px solid var(--card-border);
+
+                /* ✅ 分層 shadow */
+                box-shadow: 
+                    0 2px 6px rgba(0,0,0,0.05),
+                    0 8px 20px rgba(0,0,0,0.08);
+
+                transition: 
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease,
+                    border 0.3s ease;
+
+                opacity: 0;
             }
 
-            .card:hover {
+            /* .card:hover {
                 transform: translateY(-6px);
                 box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            } */
+
+            .card:hover {
+                transform: translateY(-8px) scale(1.01);  /* ✅ 多一點「存在感」 */
+
+                box-shadow: 
+                    0 12px 30px rgba(0,0,0,0.18),
+                    0 4px 12px rgba(0,0,0,0.1);
+
+                border: 1px solid rgba(99,102,241,0.4);  /* ✅ subtle 高級感 */
             }
 
             .card img {
@@ -308,7 +376,7 @@
                 margin: 0 5px;
             }
 
-            /* ✅ 動畫 keyframes */
+            /* 動畫 keyframes */
             @keyframes fadeUp {
                 from {
                     opacity: 0;
@@ -423,7 +491,7 @@
             }
 
             .workflow-icon {
-                font-size: 24px;
+                font-size: 28px;
                 margin-bottom: 10px;
             }
 
@@ -485,8 +553,8 @@
         <section class="hero">
             <div class="hero-text">
                 <h1>Manufacturing System Engineer</h1>
-                <p class="hero-sub">
-                    Factory System Integration | OT + IT + MES
+                <p class="hero-sub">           
+                    End-to-End Factory System Design
                 </p>
                 <p>Building integrated factory systems connecting equipment, MES, and real-time data workflows</p>
                 <p>PWA | Power Platform | C# | WPF</p>
@@ -499,18 +567,13 @@
                 About
             </p>
             <p>
-                I design and implement manufacturing systems that integrate equipment control, workflow automation, and MES systems into a unified architecture.
+                I design and build manufacturing systems that connect equipment, workflows, and data into a unified platform.
+            </p>    
+            <p>
+                With an Industrial Engineering background, I translate real-world factory processes into structured and maintainable systems.
             </p>
             <p>
-                My experience spans equipment-level control (PLC interaction), Web API development, and MES integration — enabling real-time data flow from shopfloor operations to management systems.
-            </p>
-            <p>
-                With a background in Industrial Engineering, I focus on transforming real-world 
-                factory processes into structured, reliable, and maintainable systems.
-            </p>
-            <p>
-                My work emphasizes clear system boundaries, standardized workflows, and scalability 
-                — ensuring stable operation in real production environments.
+                My focus is on system stability, clear architecture, and scalable design for real production environments.
             </p>
         </section>
 
@@ -530,13 +593,16 @@
                     <div class="arch-box">Equipment / PLC</div>
                     <div class="arch-line"><span></span></div>
 
+                    
                     <div class="arch-box">Integration (C# API)</div>
                     <div class="arch-line"><span></span></div>
 
+                    
                     <div class="arch-box">Workflow (Power Platform)</div>
                     <div class="arch-line"><span></span></div>
 
-                    <div class="arch-box">MES System</div>
+                    
+                    <div class="arch-box">Manufacturing systems (MES)</div>
                     <div class="arch-line"><span></span></div>
 
                     <div class="arch-box">Monitoring / SPC</div>
@@ -548,44 +614,42 @@
                     Event-driven data flow from equipment to MES and monitoring layer,
                     ensuring real-time visibility and decision support.
                 </p>
-
-
             </div>
-
-
-
             <div class="flow">
-
                 <div class="flow-step">
+                    <div>Real-time Data Capture</div>
                     <h3>Equipment / Operation</h3>
                     <p class="flow-role">Captures real-time operational data</p>
                     <p>PWA (Inspection)</p>
                 </div>
 
                 <div class="flow-step">
+                    <div>System Integration Layer</div>
                     <h3>Integration</h3>
                     <p class="flow-role">Transforms equipment signals into structured data</p>
                     <p>C# API / MES Communication</p>
                 </div>
 
                 <div class="flow-step">
+                    <div>Process Automation</div>
                     <h3>Workflow</h3>
                     <p class="flow-role">Automates processes and task coordination</p>
                     <p>Power Platform</p>
                 </div>
 
                 <div class="flow-step">
+                    <div>Rule Configuration</div>
                     <h3>Configuration</h3>
                     <p class="flow-role">Controls rules and data structure</p>
                     <p>Template System</p>
                 </div>
 
                 <div class="flow-step">
+                    <div>Event Monitoring</div>
                     <h3>Monitoring</h3>
                     <p class="flow-role">Analyzes data and detects abnormal events</p>
                     <p>SPC Alert System (Planned)</p>
                 </div>
-
             </div>
         </section>
 
@@ -611,6 +675,7 @@
                         </div>
                         <h2>[ Integration Layer ]</h2>
                         <h3>Equipment & MES Integration</h3>
+                        <h6>Integration Layer Connects PLC, API, and MES systems</h6>
                         <p>
                             Transforms PLC signals into structured events<br>
                             Implements Web APIs for real-time integration<br>
@@ -623,7 +688,7 @@
                     <div class="card">
                         <img src="inspection.png" alt="Inspection System">
                         <h2>[ Operation Layer ]</h2>
-                        <h3>Inspection System (PWA)</h3>
+                        <h3>Inspection System</h3>
                         <p>
                             Captures real-time production data from shopfloor operations<br>
                             Ensures structured and validated input<br>
@@ -647,7 +712,7 @@
                     <div class="card">
                         <img src="wpf.png" alt="WPF Tool">
                         <h2>[ Infrastructure Layer ]</h2>
-                        <h3>System Environment Manager (WPF)</h3>
+                        <h3>System Environment Manager</h3>
                         <p>
                             Maintains system stability and service control<br>
                             Manages environment configuration<br>
@@ -668,7 +733,7 @@
             <div class="demo-grid">
 
                 <div class="demo-item">
-                    <h3>Inspection (PWA)</h3>
+                    <h3>Inspection</h3>
                     <img src="inspection.gif">
                 </div>
 
@@ -678,7 +743,7 @@
                 </div>
 
                 <div class="demo-item">
-                    <h3>MTS (Teams + Power Platform)</h3>
+                    <h3>Abnormal Event Report</h3>
                     <img src="teams.gif">
                 </div>
 
@@ -689,7 +754,7 @@
         <!-- 6 WORKFLOW -->
         <section class="workflow">
             <h2>Workflow</h2>
-
+            <h4>Closed-loop execution from issue reporting to system monitoring</h4>
             <p class="workflow-desc">
                 A closed-loop process connecting real-time event capture, system integration,
                 workflow execution, and monitoring.
@@ -712,7 +777,7 @@
                 <div class="workflow-step">
                     <div class="workflow-icon">🔧</div>
                     <h3>Execute</h3>
-                    <p>Handled through PWA system and operational actions</p>
+                    <p>Handled through management system and operational actions</p>
                 </div>
 
                 <div class="workflow-step">

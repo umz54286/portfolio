@@ -387,24 +387,64 @@
                     transform: translateY(0);
                 }
             }
-
             
             .demo-grid {
                 display: flex;
-                gap: 20px;
+                gap: 24px;
                 justify-content: center;
                 flex-wrap: wrap;
             }
 
             .demo-item {
-                width: 280px;
+                width: 320px; 
                 text-align: center;
             }
 
-            .demo-item img {
-                width: 100%;
-                border-radius: 8px;
+            .demo-item h3 {
+                margin-bottom: 10px;
+                font-size: 15px;
+                color: var(--text-color);
             }
+
+            .demo-item video { 
+                width: 100%;
+                border-radius: 10px;
+                border: 1px solid rgba(255,255,255,0.08);
+
+                /* ✅ 初始比較像靜態 */
+                filter: brightness(0.85);
+                transform: scale(1);
+
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .demo-item video:hover {
+                filter: brightness(1);
+                transform: scale(1.03);
+            }
+
+            .demo-item video {
+                cursor: pointer;
+            }
+
+
+            .video-modal {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+
+            .video-modal video {
+                max-width: 80%;
+                max-height: 80%;
+                border-radius: 12px;
+            }
+
 
             
             .theme-toggle {
@@ -727,7 +767,7 @@
         </section>
 
         <!-- 5 DEMO -->
-        <section class="demo">
+        <!-- <section class="demo">
             <h2>System Demonstration</h2>
 
             <div class="demo-grid">
@@ -748,7 +788,33 @@
                 </div>
 
             </div>
+        </section> -->
+        
+        
+        <section class="demo">
+            <h2>System Demonstration</h2>
+
+            <div class="demo-grid">
+
+                <div class="demo-item">
+                    <h3>Inspection</h3>
+                    <video src="inspection.mp4" muted preload="metadata" loop onclick="openVideoModal(this.src)"></video>
+                </div>
+
+                <div class="demo-item">
+                    <h3>Configuration</h3>
+                    <video src="config.mp4" muted preload="metadata" loop onclick="openVideoModal(this.src)"></video>
+                </div>
+
+                <div class="demo-item">
+                    <h3>Abnormal Event Report</h3>
+                    <video src="teams.mp4" muted preload="metadata" loop onclick="openVideoModal(this.src)"></video>
+                </div>
+
+            </div>
         </section>
+
+
 
 
         <!-- 6 WORKFLOW -->
@@ -869,6 +935,36 @@
                 document.getElementById("systemsContainer")
                     .scrollBy({ left: value, behavior: "smooth" });
             }
+
+            
+            function openVideoModal(src) {
+                const modal = document.createElement("div");
+                modal.className = "video-modal";
+                modal.innerHTML = `
+                    <div class="video-modal-content">
+                        <video src="${src}" controls autoplay></video>
+                    </div>
+                `;
+                modal.onclick = () => document.body.removeChild(modal);
+                document.body.appendChild(modal);
+            }
+
+                        
+            document.querySelectorAll('.demo-item video').forEach(video => {
+
+                video.addEventListener('mouseenter', () => {
+                    video.currentTime = 0;
+                    video.play();
+                });
+
+                video.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+
+            });
+
+
         </script>
 
     </body>
